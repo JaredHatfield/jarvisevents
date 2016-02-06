@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.unitvectory</groupId>
+	<artifactId>jarvisevents</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>jarvisevents</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<aws.sdk>1.10.30</aws.sdk>
+		<junit.version>4.12</junit.version>
+		<aws.lambda.java.core>1.1.0</aws.lambda.java.core>
+		<findbugs.maven.plugin.version>3.0.0</findbugs.maven.plugin.version>
+		<maven.pmd.plugin.version>3.3</maven.pmd.plugin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-bom</artifactId>
+				<version>${aws.sdk}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-core</artifactId>
+			<version>${aws.lambda.java.core}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-dynamodb</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mogo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${findbugs.maven.plugin.version}</version>
+				<configuration>
+					<findbugsXmlOutput>true</findbugsXmlOutput>
+					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+					<xmlOutput>true</xmlOutput>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven.pmd.plugin.version}</version>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>
