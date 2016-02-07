@@ -152,7 +152,7 @@
                       {
                         "Ref": "AWS::AccountId"
                       },
-                      "jarvisevents"
+                      "table/jarvisevents"
                     ]
                   ]
                 }
