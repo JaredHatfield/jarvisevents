@@ -28,7 +28,6 @@ public class JarvisEventHandler implements RequestStreamHandler {
 			// Parse the input into a JSON object
 			String jsonString = IOUtils.toString(inputStream);
 			JSONObject json = new JSONObject(jsonString);
-			System.out.println(jsonString);
 
 			String deviceId = json.getString("deviceId");
 			long epochMilliseconds = System.currentTimeMillis();
