@@ -58,8 +58,8 @@
             "AttributeType": "S"
           },
           {
-            "AttributeName": "dateTime",
-            "AttributeType": "S"
+            "AttributeName": "epochMilliseconds",
+            "AttributeType": "N"
           }
         ],
         "KeySchema": [
@@ -68,7 +68,7 @@
             "KeyType": "HASH"
           },
           {
-            "AttributeName": "dateTime",
+            "AttributeName": "epochMilliseconds",
             "KeyType": "RANGE"
           }
         ],
