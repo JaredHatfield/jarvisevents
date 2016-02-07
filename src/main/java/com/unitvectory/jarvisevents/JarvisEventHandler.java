@@ -58,6 +58,19 @@ public class JarvisEventHandler implements RequestStreamHandler {
 
 			json.remove("auth");
 
+			// If this has a sensorId restructure the hash key to break up
+			// sensors
+			if (json.has("sensorId")) {
+				String sensorId = json.getString("sensorId");
+				if (deviceId.contains("|") || sensorId.contains("|")) {
+					throw new RuntimeException("| not allowed");
+				}
+
+				json.put("deviceId_actual", deviceId);
+				json.put("deviceId", deviceId + "|" + sensorId);
+			}
+
+			// Write to DynamoDB
 			table.putItem(Item.fromJSON(json.toString()));
 
 			// Write the output
