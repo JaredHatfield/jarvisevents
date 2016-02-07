@@ -17,6 +17,7 @@
 		<aws.lambda.java.core>1.1.0</aws.lambda.java.core>
 		<findbugs.maven.plugin.version>3.0.0</findbugs.maven.plugin.version>
 		<maven.pmd.plugin.version>3.3</maven.pmd.plugin.version>
+		<commons.io.version>2.4</commons.io.version>
 	</properties>
 
 	<dependencyManagement>
@@ -46,6 +47,11 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-dynamodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io.version}</version>
 		</dependency>
 	</dependencies>
 
