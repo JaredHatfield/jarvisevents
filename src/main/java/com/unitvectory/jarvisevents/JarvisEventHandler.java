@@ -3,7 +3,10 @@ package com.unitvectory.jarvisevents;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
@@ -69,8 +72,27 @@ public class JarvisEventHandler implements RequestStreamHandler {
 				json.put("deviceId", deviceId + "|" + sensorId);
 			}
 
+			// Remove all of the empty keys
+			List<String> emptyKeys = new ArrayList<String>();
+
+			@SuppressWarnings("unchecked")
+			Iterator<String> i = (Iterator<String>) json.keys();
+			while (i.hasNext()) {
+				String key = i.next();
+				String value = json.getString(key);
+				if (value.trim().length() == 0) {
+					emptyKeys.add(key);
+				}
+			}
+
+			for (String key : emptyKeys) {
+				json.remove(key);
+			}
+
+			Item item = Item.fromJSON(json.toString());
+
 			// Write to DynamoDB
-			table.putItem(Item.fromJSON(json.toString()));
+			table.putItem(item);
 
 			// Write the output
 			JSONObject out = new JSONObject();
